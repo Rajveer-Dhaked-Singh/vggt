@@ -1,9 +1,3 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-# All rights reserved.
-#
-# This source code is licensed under the license found in the
-# LICENSE file in the root directory of this source tree.
-
 import gzip
 import json
 import os.path as osp
@@ -164,7 +158,7 @@ class Co3dDataset(BaseDataset):
 
         status = "Training" if self.training else "Testing"
         logging.info(f"{status}: Co3D Data size: {self.sequence_list_len}")
-        logging.info(f"{status}: Co3D Data dataset length: {len(self)}")
+        logging.info(f"{status}: Co3d Data dataset length: {len(self)}")
 
     def get_data(
         self,
@@ -189,7 +183,7 @@ class Co3dDataset(BaseDataset):
         """
         if self.inside_random:
             seq_index = random.randint(0, self.sequence_list_len - 1)
-            
+
         if seq_name is None:
             seq_name = self.sequence_list[seq_index]
 
@@ -220,6 +214,13 @@ class Co3dDataset(BaseDataset):
             image_path = osp.join(self.CO3D_DIR, filepath)
             image = read_image_cv2(image_path)
 
+            if image is None: # Correctly indented check for invalid images
+                logging.warning(f"Skipping missing/corrupt image: {image_path}")
+                continue
+
+            # Ensure original_size is defined before load_depth block
+            original_size = np.array(image.shape[:2])
+
             if self.load_depth:
                 depth_path = image_path.replace("/images", "/depths") + ".geometric.png"
                 depth_map = read_depth(depth_path, 1.0)
@@ -236,7 +237,6 @@ class Co3dDataset(BaseDataset):
             else:
                 depth_map = None
 
-            original_size = np.array(image.shape[:2])
             extri_opencv = np.array(anno["extri"])
             intri_opencv = np.array(anno["intri"])
 
@@ -270,6 +270,10 @@ class Co3dDataset(BaseDataset):
             original_sizes.append(original_size)
 
         set_name = "co3d"
+
+        # Add a check to prevent returning an empty batch
+        if len(images) == 0:
+            raise RuntimeError("All images in this batch were invalid!")
 
         batch = {
             "seq_name": set_name + "_" + seq_name,
