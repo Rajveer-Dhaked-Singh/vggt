@@ -24,7 +24,7 @@ data:
       landscape_check: False
       debug: False
       get_nearby: True
-      load_depth: True
+      load_depth: False
       img_nums: [2, 24]
       max_img_per_gpu: 48
       allow_duplicate_img: True
@@ -66,7 +66,7 @@ data:
       landscape_check: False
       debug: False
       get_nearby: True
-      load_depth: True
+      load_depth: False
       img_nums: [2, 12]
       allow_duplicate_img: True
 
