@@ -4,8 +4,8 @@ defaults:
   - _self_
 
 exp_name: exp001
-img_size: 256
-num_workers: 8
+img_size: 128
+num_workers: 2
 seed_value: 42
 accum_steps: 4    # Gradient accumulation, use if OOM occurs
 patch_size: 14
@@ -13,8 +13,8 @@ val_epoch_freq: 5
 max_img_per_gpu: 1
 max_epochs: 10
 
-limit_train_batches: 800
-limit_val_batches: 400
+limit_train_batches: 20   # quick test
+limit_val_batches: 10     # quick test
 
 data:
   train:
@@ -24,8 +24,9 @@ data:
     common_config:
       img_size: ${img_size}
       patch_size: ${patch_size}
-      debug: False
+      debug: True          # enable debug for quick test
       repeat_batch: False
+      fix_img_num: 20      # load only 20 images for quick test
     dataset:
       _target_: data.composed_dataset.ComposedDataset
       dataset_configs:
@@ -33,6 +34,7 @@ data:
           split: train
           CO3D_DIR: /content/co3d_data
           CO3D_ANNOTATION_DIR: /content/co3d_annotations
+
   val:
     _target_: data.dynamic_dataloader.DynamicTorchDataset
     num_workers: ${num_workers}
@@ -40,7 +42,8 @@ data:
     common_config:
       img_size: ${img_size}
       patch_size: ${patch_size}
-      debug: False
+      debug: True
+      fix_img_num: 10      # load only 10 images for validation
     dataset:
       _target_: data.composed_dataset.ComposedDataset
       dataset_configs:
@@ -94,23 +97,23 @@ cuda:
 distributed:
   backend: "nccl"
   timeout_mins: 30
-  find_unused_parameters: False   # <-- added to fix DDP error
+  find_unused_parameters: False
+  gradient_as_bucket_view: true
+  bucket_cap_mb: 25
+  broadcast_buffers: true
 
-# ---------------------------
-# Optimizer, Scheduler, Gradient Clip
-# ---------------------------
 optim_conf:
   optimizer:
     _target_: torch.optim.AdamW
     lr: 0.0001
-    weight_decay: 0.00001
-
-  options: null   # no scheduler for now
-
+    weight_decay: 1.0e-05
+  options: null
   amp:
-    enabled: True
+    enabled: true
     amp_dtype: float16
-
   gradient_clip:
-    _target_: train_utils.optimizer.GradientClipNorm
-    max_norm: 1.0
+    _target_: train_utils.gradient_clip.GradientClipper
+    configs:
+      - module_name: ""
+        max_norm: 1.0
+        norm_type: 2
