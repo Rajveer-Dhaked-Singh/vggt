@@ -1,0 +1,1 @@
+aggregator.patch_embed.mask_token                            (1, 1024)            1024

@@ -1,0 +1,3 @@
+
+model:
+  _target_: vggt.models.vggt.VGGT

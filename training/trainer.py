@@ -105,6 +105,7 @@ class Trainer:
         self._setup_timers()
 
         # Store Hydra configurations
+  
         self.data_conf = data
         self.model_conf = model
         self.loss_conf = loss
@@ -128,14 +129,14 @@ class Trainer:
         self._setup_torch_dist_and_backend(cuda, distributed)
 
         # Setup logging directory and configure logger
-        safe_makedirs(self.logging_conf.log_dir)
+        safe_makedirs(self.logging_conf['log_dir'])
         setup_logging(
             __name__,
-            output_dir=self.logging_conf.log_dir,
+            output_dir=self.logging_conf['log_dir'],
             rank=self.rank,
-            log_level_primary=self.logging_conf.log_level_primary,
-            log_level_secondary=self.logging_conf.log_level_secondary,
-            all_ranks=self.logging_conf.all_ranks,
+            log_level_primary=self.logging_conf['log_level_primary'],
+            log_level_secondary=self.logging_conf['log_level_secondary'],
+            all_ranks=self.logging_conf['all_ranks'],
         )
         set_seeds(seed_value, self.max_epochs, self.distributed_rank)
 
@@ -183,15 +184,15 @@ class Trainer:
         """Initializes the distributed process group and configures PyTorch backends."""
         if torch.cuda.is_available():
             # Configure CUDA backend settings for performance
-            torch.backends.cudnn.deterministic = cuda_conf.cudnn_deterministic
-            torch.backends.cudnn.benchmark = cuda_conf.cudnn_benchmark
-            torch.backends.cuda.matmul.allow_tf32 = cuda_conf.allow_tf32
-            torch.backends.cudnn.allow_tf32 = cuda_conf.allow_tf32
+            torch.backends.cudnn.deterministic = cuda_conf['cudnn_deterministic']
+            torch.backends.cudnn.benchmark = cuda_conf['cudnn_benchmark']
+            torch.backends.cuda.matmul.allow_tf32 = cuda_conf['allow_tf32']
+            torch.backends.cudnn.allow_tf32 = cuda_conf['allow_tf32']
 
         # Initialize the DDP process group
         dist.init_process_group(
-            backend=distributed_conf.backend,
-            timeout=timedelta(minutes=distributed_conf.timeout_mins)
+            backend=distributed_conf['backend'],
+            timeout=timedelta(minutes=distributed_conf['timeout_mins'])
         )
         self.rank = dist.get_rank()
 
@@ -243,7 +244,7 @@ class Trainer:
         self.steps = {'train': 0, 'val': 0}
 
         # Instantiate components from configs
-        self.tb_writer = instantiate(self.logging_conf.tensorboard_writer, _recursive_=False)
+        self.tb_writer = instantiate(self.logging_conf['tensorboard_writer'], _recursive_=False)
         self.model = instantiate(self.model_conf, _recursive_=False)
         self.loss = instantiate(self.loss_conf, _recursive_=False)
         self.gradient_clipper = instantiate(self.optim_conf.gradient_clip)
@@ -264,7 +265,7 @@ class Trainer:
 
         # Log model summary on rank 0
         if self.rank == 0:
-            model_summary_path = os.path.join(self.logging_conf.log_dir, "model.txt")
+            model_summary_path = os.path.join(self.logging_conf['log_dir'], "model.txt")
             model_summary(self.model, log_file=model_summary_path)
             logging.info(f"Model summary saved to {model_summary_path}")
 
@@ -291,10 +292,10 @@ class Trainer:
         assert isinstance(self.model, torch.nn.Module)
 
         ddp_options = dict(
-            find_unused_parameters=distributed_conf.find_unused_parameters,
-            gradient_as_bucket_view=distributed_conf.gradient_as_bucket_view,
-            bucket_cap_mb=distributed_conf.bucket_cap_mb,
-            broadcast_buffers=distributed_conf.broadcast_buffers,
+            find_unused_parameters=distributed_conf['find_unused_parameters'],
+            gradient_as_bucket_view=distributed_conf['gradient_as_bucket_view'],
+            bucket_cap_mb=distributed_conf['bucket_cap_mb'],
+            broadcast_buffers=distributed_conf['broadcast_buffers'],
         )
 
         self.model = nn.parallel.DistributedDataParallel(
@@ -358,8 +359,8 @@ class Trainer:
 
     def _get_scalar_log_keys(self, phase: str) -> List[str]:
         """Retrieves keys for scalar values to be logged for a given phase."""
-        if self.logging_conf.scalar_keys_to_log:
-            return self.logging_conf.scalar_keys_to_log[phase].keys_to_log
+        if self.logging_conf['scalar_keys_to_log']:
+            return self.logging_conf['scalar_keys_to_log'][phase].keys_to_log
         return []
 
     def run(self):
@@ -492,7 +493,7 @@ class Trainer:
             if torch.cuda.is_available():
                 mem.update(torch.cuda.max_memory_allocated() // 1e9)
 
-            if data_iter % self.logging_conf.log_freq == 0:
+            if data_iter % self.logging_conf['log_freq'] == 0:
                 progress.display(data_iter)
 
 
@@ -583,7 +584,7 @@ class Trainer:
                 )
                     
             # Log schedulers
-            if self.steps[phase] % self.logging_conf.log_freq == 0:
+            if self.steps[phase] % self.logging_conf['log_freq'] == 0:
                 for i, optim in enumerate(self.optims):
                     for j, param_group in enumerate(optim.optimizer.param_groups):
                         for option in optim.schedulers[j]:
@@ -630,7 +631,7 @@ class Trainer:
             )
             mem.update(torch.cuda.max_memory_allocated() // 1e9)
 
-            if data_iter % self.logging_conf.log_freq == 0:
+            if data_iter % self.logging_conf['log_freq'] == 0:
                 progress.display(data_iter)
 
         return True
@@ -766,28 +767,28 @@ class Trainer:
             if key in data:
                 value = data[key].item() if torch.is_tensor(data[key]) else data[key]
                 loss_meters[f"Loss/{phase}_{key}"].update(value, batch_size)
-                if step % self.logging_conf.log_freq == 0 and self.rank == 0:
+                if step % self.logging_conf['log_freq'] == 0 and self.rank == 0:
                     self.tb_writer.log(f"Values/{phase}/{key}", value, step)
 
     def _log_tb_visuals(self, batch: Mapping, phase: str, step: int) -> None:
         """Logs image or video visualizations to TensorBoard."""
         if not (
-            self.logging_conf.log_visuals
-            and (phase in self.logging_conf.log_visual_frequency)
-            and self.logging_conf.log_visual_frequency[phase] > 0
-            and (step % self.logging_conf.log_visual_frequency[phase] == 0)
-            and (self.logging_conf.visuals_keys_to_log is not None)
+            self.logging_conf['log_visuals']
+            and (phase in self.logging_conf['log_visual_frequency'])
+            and self.logging_conf['log_visual_frequency'][phase] > 0
+            and (step % self.logging_conf['log_visual_frequency'][phase] == 0)
+            and (self.logging_conf['visuals_keys_to_log'] is not None)
         ):
             return
 
-        if phase in self.logging_conf.visuals_keys_to_log:
-            keys_to_log = self.logging_conf.visuals_keys_to_log[phase][
+        if phase in self.logging_conf['visuals_keys_to_log']:
+            keys_to_log = self.logging_conf['visuals_keys_to_log'][phase][
                 "keys_to_log"
             ]
             assert (
                 len(keys_to_log) > 0
             ), "Need to include some visual keys to log"
-            modality = self.logging_conf.visuals_keys_to_log[phase][
+            modality = self.logging_conf['visuals_keys_to_log'][phase][
                 "modality"
             ]
             assert modality in [
@@ -801,7 +802,7 @@ class Trainer:
                 [
                     torchvision.utils.make_grid(
                         batch[key][0],  # Ensure batch[key][0] is tensor and has at least 3 dimensions
-                        nrow=self.logging_conf.visuals_per_batch_to_log,
+                        nrow=self.logging_conf['visuals_per_batch_to_log'],
                     )
                     for key in keys_to_log if key in batch and batch[key][0].dim() >= 3
                 ],
@@ -814,7 +815,7 @@ class Trainer:
             visuals_to_log = visuals_to_log.numpy()
 
             self.tb_writer.log_visuals(
-                name, visuals_to_log, step, self.logging_conf.video_logging_fps
+                name, visuals_to_log, step, self.logging_conf['video_logging_fps']
             )
 
 

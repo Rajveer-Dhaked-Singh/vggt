@@ -1,0 +1,144 @@
+INFO 2026-03-25 09:35:01,458 general.py: 221: GPU SEED: 840
+INFO 2026-03-25 09:35:01,462 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 09:35:42,659 general.py: 221: GPU SEED: 840
+INFO 2026-03-25 09:35:42,661 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 09:35:50,069 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 09:36:02,007 trainer.py: 254: [Start] Freezing modules: ['*aggregator*'] on rank 0
+INFO 2026-03-25 09:36:02,097 trainer.py: 261: [Done] Freezing modules: ['*aggregator*'] on rank 0
+INFO 2026-03-25 09:36:05,326 trainer.py: 269: Model summary saved to logs/model.txt
+INFO 2026-03-25 09:36:05,326 trainer.py: 271: Successfully initialized training components.
+INFO 2026-03-25 09:36:05,358 co3d.py: 126: CO3D_DIR is /content/co3d_data
+ERROR 2026-03-25 09:36:05,849 co3d.py: 143: Annotation file not found: /content/co3d_annotations/bench_test.jgz
+INFO 2026-03-25 09:36:10,555 co3d.py: 159: Testing: Co3D Data size: 2030
+INFO 2026-03-25 09:36:10,555 co3d.py: 160: Testing: Co3D Data dataset length: 10000
+INFO 2026-03-25 09:36:10,704 co3d.py: 126: CO3D_DIR is /content/co3d_data
+ERROR 2026-03-25 09:36:14,169 co3d.py: 143: Annotation file not found: /content/co3d_annotations/bench_train.jgz
+INFO 2026-03-25 09:36:40,816 co3d.py: 159: Training: Co3D Data size: 21685
+INFO 2026-03-25 09:36:40,816 co3d.py: 160: Training: Co3D Data dataset length: 100000
+INFO 2026-03-25 09:37:15,697 general.py: 221: GPU SEED: 840
+INFO 2026-03-25 09:37:15,699 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 09:37:22,781 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 09:37:34,140 trainer.py: 254: [Start] Freezing modules: ['*aggregator*'] on rank 0
+INFO 2026-03-25 09:37:34,240 trainer.py: 261: [Done] Freezing modules: ['*aggregator*'] on rank 0
+INFO 2026-03-25 09:37:38,483 trainer.py: 269: Model summary saved to logs/model.txt
+INFO 2026-03-25 09:37:38,483 trainer.py: 271: Successfully initialized training components.
+INFO 2026-03-25 09:37:38,506 co3d.py: 126: CO3D_DIR is /content/co3d_data
+ERROR 2026-03-25 09:37:38,999 co3d.py: 143: Annotation file not found: /content/co3d_annotations/bench_test.jgz
+INFO 2026-03-25 09:37:43,124 co3d.py: 159: Testing: Co3D Data size: 2030
+INFO 2026-03-25 09:37:43,124 co3d.py: 160: Testing: Co3D Data dataset length: 10000
+INFO 2026-03-25 09:37:43,243 co3d.py: 126: CO3D_DIR is /content/co3d_data
+ERROR 2026-03-25 09:37:45,952 co3d.py: 143: Annotation file not found: /content/co3d_annotations/bench_train.jgz
+INFO 2026-03-25 09:38:10,518 co3d.py: 159: Training: Co3D Data size: 21685
+INFO 2026-03-25 09:38:10,518 co3d.py: 160: Training: Co3D Data dataset length: 100000
+INFO 2026-03-25 09:38:12,122 trainer.py: 200: Resuming training from /content/vggt/pre_trained_models/vggt_checkpoint.pth (rank 0)
+INFO 2026-03-25 10:59:40,480 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 10:59:40,482 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 10:59:48,048 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:01:54,923 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:01:54,925 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:02:01,642 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:04:09,457 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:04:09,458 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:04:16,437 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:04:24,801 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:04:24,803 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:04:31,885 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:06:49,154 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:06:49,156 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:06:55,407 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:08:20,424 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:08:20,426 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:08:27,192 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:08:36,156 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:08:36,157 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:08:42,384 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:12:15,267 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:12:15,270 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:12:21,698 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:16:24,128 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:16:24,130 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:16:30,690 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:18:06,558 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:18:06,560 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:18:13,092 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:21:48,653 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:21:48,661 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:22:00,079 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:28:02,604 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:28:02,612 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:28:13,845 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:29:37,980 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:29:37,990 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:29:49,766 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:33:00,314 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:33:00,322 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:33:12,485 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:36:55,464 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:36:55,470 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:37:06,855 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:40:36,630 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:40:36,637 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:40:48,824 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:42:50,087 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:42:50,101 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:43:03,474 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:48:36,951 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:48:36,959 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:48:49,497 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:49:09,617 trainer.py: 274: Model summary saved to logs/model.txt
+INFO 2026-03-25 11:49:09,618 trainer.py: 276: Successfully initialized training components.
+INFO 2026-03-25 11:49:09,645 co3d.py: 133: CO3D_DIR is /content/co3d_data
+INFO 2026-03-25 11:49:16,245 co3d.py: 166: Testing: Co3D Data size: 2303
+INFO 2026-03-25 11:49:16,246 co3d.py: 167: Testing: Co3D Data dataset length: 10000
+INFO 2026-03-25 11:51:08,454 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:51:08,463 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:51:22,411 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:51:41,083 trainer.py: 274: Model summary saved to logs/model.txt
+INFO 2026-03-25 11:51:41,083 trainer.py: 276: Successfully initialized training components.
+INFO 2026-03-25 11:51:41,108 co3d.py: 133: CO3D_DIR is /content/co3d_data
+INFO 2026-03-25 11:51:48,168 co3d.py: 166: Testing: Co3D Data size: 2303
+INFO 2026-03-25 11:51:48,169 co3d.py: 167: Testing: Co3D Data dataset length: 10000
+INFO 2026-03-25 11:51:48,329 co3d.py: 133: CO3D_DIR is /content/co3d_data
+INFO 2026-03-25 11:56:35,574 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 11:56:35,583 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 11:56:49,681 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 11:57:08,078 trainer.py: 274: Model summary saved to logs/model.txt
+INFO 2026-03-25 11:57:08,079 trainer.py: 276: Successfully initialized training components.
+INFO 2026-03-25 11:57:08,107 co3d.py: 133: CO3D_DIR is /content/co3d_data
+INFO 2026-03-25 11:57:15,185 co3d.py: 166: Testing: Co3D Data size: 2303
+INFO 2026-03-25 11:57:15,185 co3d.py: 167: Testing: Co3D Data dataset length: 10000
+INFO 2026-03-25 11:57:15,366 co3d.py: 133: CO3D_DIR is /content/co3d_data
+INFO 2026-03-25 12:01:30,437 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 12:01:30,446 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 12:01:45,318 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 12:02:04,646 trainer.py: 274: Model summary saved to logs/model.txt
+INFO 2026-03-25 12:02:04,646 trainer.py: 276: Successfully initialized training components.
+INFO 2026-03-25 12:02:04,669 co3d.py: 133: CO3D_DIR is /content/co3d_data
+INFO 2026-03-25 12:02:11,074 co3d.py: 166: Testing: Co3D Data size: 2303
+INFO 2026-03-25 12:02:11,076 co3d.py: 167: Testing: Co3D Data dataset length: 10000
+INFO 2026-03-25 12:02:11,258 co3d.py: 133: CO3D_DIR is /content/co3d_data
+INFO 2026-03-25 12:02:41,816 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 12:02:41,825 trainer.py: 241: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 12:02:55,516 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 12:03:13,409 trainer.py: 274: Model summary saved to logs/model.txt
+INFO 2026-03-25 12:03:13,409 trainer.py: 276: Successfully initialized training components.
+INFO 2026-03-25 12:03:13,430 co3d.py: 133: CO3D_DIR is /content/co3d_data
+INFO 2026-03-25 12:03:20,168 co3d.py: 166: Testing: Co3D Data size: 2303
+INFO 2026-03-25 12:03:20,168 co3d.py: 167: Testing: Co3D Data dataset length: 10000
+INFO 2026-03-25 12:03:20,274 co3d.py: 133: CO3D_DIR is /content/co3d_data
+INFO 2026-03-25 12:03:54,139 co3d.py: 166: Training: Co3D Data size: 24790
+INFO 2026-03-25 12:03:54,140 co3d.py: 167: Training: Co3D Data dataset length: 100000
+INFO 2026-03-25 12:14:39,108 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 12:14:39,114 trainer.py: 242: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 12:14:47,938 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 12:18:20,060 general.py: 221: GPU SEED: 420
+INFO 2026-03-25 12:18:20,062 trainer.py: 242: Setting up components: Model, Loss, Logger, etc.
+INFO 2026-03-25 12:18:26,422 tb_writer.py:  45: TensorBoard SummaryWriter instantiated. Files will be stored in: logs/tensorboard
+INFO 2026-03-25 12:18:45,260 trainer.py: 270: Model summary saved to logs/model.txt
+INFO 2026-03-25 12:18:45,261 trainer.py: 272: Successfully initialized training components.
+INFO 2026-03-25 12:18:45,290 co3d.py: 133: CO3D_DIR is /content/co3d_data
+INFO 2026-03-25 12:18:51,022 co3d.py: 166: Testing: Co3D Data size: 2303
+INFO 2026-03-25 12:18:51,022 co3d.py: 167: Testing: Co3D Data dataset length: 10000
+INFO 2026-03-25 12:18:51,136 co3d.py: 133: CO3D_DIR is /content/co3d_data
+INFO 2026-03-25 12:19:25,095 co3d.py: 166: Training: Co3D Data size: 24790
+INFO 2026-03-25 12:19:25,096 co3d.py: 167: Training: Co3D Data dataset length: 100000

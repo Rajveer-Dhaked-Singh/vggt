@@ -271,3 +271,21 @@ def construct_optimizers(model: nn.Module, optim_conf) -> Union[List[OptimizerWr
         validate_param_groups=True,
     )
     return [optimizer]
+
+# ---------------------------------------------------------------------------
+# Gradient clipping helper
+# ---------------------------------------------------------------------------
+
+class GradientClipNorm:
+    """
+    Clips model gradients to a maximum L2 norm.
+    Can be instantiated via Hydra and called after loss.backward().
+    """
+    def __init__(self, max_norm: float = 1.0):
+        self.max_norm = max_norm
+
+    def __call__(self, model: torch.nn.Module):
+        if model is None:
+            return
+        total_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), self.max_norm)
+        return total_norm
