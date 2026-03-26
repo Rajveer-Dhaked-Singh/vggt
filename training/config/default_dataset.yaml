@@ -16,7 +16,7 @@ data:
       load_track: False
       track_num: 1024
       training: True
-      inside_random: True
+      inside_random: False
       img_size: 224
       patch_size: 14
       rescale: True
