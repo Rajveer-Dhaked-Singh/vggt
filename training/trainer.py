@@ -384,7 +384,7 @@ class Trainer:
             self.train_epoch(dataloader)
             
             # Save checkpoint after each training epoch
-            self.save_checkpoint(self.epoch)
+            #self.save_checkpoint(self.epoch)
 
             # Clean up memory
             del dataloader
