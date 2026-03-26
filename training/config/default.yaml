@@ -7,14 +7,15 @@ exp_name: exp001
 img_size: 128
 num_workers: 2
 seed_value: 42
-accum_steps: 4    # Gradient accumulation, use if OOM occurs
+accum_steps: 4
 patch_size: 14
-val_epoch_freq: 5
+val_epoch_freq: 1   # Set to 1 so you see validation results after the first epoch
 max_img_per_gpu: 1
-max_epochs: 10
+max_epochs: 1       # Changed from 10 to 1 for a single full pass
 
-limit_train_batches: 20   # quick test
-limit_val_batches: 10     # quick test
+# --- FULL RUN SETTINGS ---
+limit_train_batches: null   # Changed from 5 to null (Runs full dataset)
+limit_val_batches: null     # Changed from 2 to null (Runs full validation)
 
 data:
   train:
@@ -24,11 +25,29 @@ data:
     common_config:
       img_size: ${img_size}
       patch_size: ${patch_size}
-      debug: True          # enable debug for quick test
+      debug: True
       repeat_batch: False
-      fix_img_num: 20      # load only 20 images for quick test
+      fix_img_num: 5
+      img_nums: [2, 6]
+      get_nearby: True
+      allow_duplicate_img: True
+      augs:
+        cojitter: True
+        cojitter_ratio: 0.3
+        scales: [0.8, 1.2]
+        aspects: [0.33, 1.0]
+        color_jitter:
+          brightness: 0.5
+          contrast: 0.5
+          saturation: 0.5
+          hue: 0.1
+          p: 0.9
+        gray_scale: True
+        gau_blur: False
+      training: True
     dataset:
       _target_: data.composed_dataset.ComposedDataset
+      common_config: ${data.train.common_config}
       dataset_configs:
         - _target_: data.datasets.co3d.Co3dDataset
           split: train
@@ -43,9 +62,22 @@ data:
       img_size: ${img_size}
       patch_size: ${patch_size}
       debug: True
-      fix_img_num: 10      # load only 10 images for validation
+      fix_img_num: 4
+      img_nums: [2, 5]
+      get_nearby: True
+      allow_duplicate_img: True
+      augs:
+        cojitter: False
+        cojitter_ratio: 0.5
+        scales: null
+        aspects: [1.0, 1.0]
+        color_jitter: null
+        gray_scale: False
+        gau_blur: False
+      training: False
     dataset:
       _target_: data.composed_dataset.ComposedDataset
+      common_config: ${data.val.common_config}
       dataset_configs:
         - _target_: data.datasets.co3d.Co3dDataset
           split: test
@@ -54,7 +86,7 @@ data:
 
 logging:
   log_dir: logs
-  log_visuals: False
+  log_visuals: False   # Keep False to save disk space
   log_freq: 1
   log_level_primary: DEBUG
   log_level_secondary: WARNING
@@ -86,8 +118,9 @@ logging:
 
 checkpoint:
   save_dir: logs/${exp_name}/ckpts
-  save_freq: 5
-  resume_checkpoint_path: null
+  save_freq: 1000      # DO NOT CHANGE: Keeps your 3.4GB disk from crashing
+  resume_checkpoint_path: null 
+  save_weights_only: True
 
 cuda:
   cudnn_deterministic: False
